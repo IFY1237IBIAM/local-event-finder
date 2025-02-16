@@ -36,7 +36,7 @@ function displayEvents(events) {
 
     events.forEach(event => {
         const eventItem = document.createElement("div");
-        eventItem.classList.add("event");
+        eventItem.classList.add("event-card");
 
         eventItem.innerHTML = `
             <h3>${event.name.text}</h3>
@@ -49,7 +49,27 @@ function displayEvents(events) {
     });
 }
 
-// Example: Fetch events when the page loads
+// Dark Mode Toggle
+const themeToggle = document.getElementById("theme-toggle");
+
+// Check user preference
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggle.checked = true;
+}
+
+// Listen for toggle change
+themeToggle.addEventListener("change", () => {
+    if (themeToggle.checked) {
+        document.body.classList.add("dark-mode");
+        localStorage.setItem("theme", "dark");
+    } else {
+        document.body.classList.remove("dark-mode");
+        localStorage.setItem("theme", "light");
+    }
+});
+
+// Fetch events on page load
 document.addEventListener("DOMContentLoaded", () => {
-    fetchEvents("Lagos");  // Change location as needed
+    fetchEvents("Lagos");  // Default location
 });
